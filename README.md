@@ -3,9 +3,6 @@
 
 NoteCraft is a simple note-taking application built with Node.js, Express, Sequelize, and MySQL.
 
-
-
-
 ## Features
 
 - User authentication using JWT (JSON Web Tokens)
@@ -27,6 +24,7 @@ NoteCraft is a simple note-taking application built with Node.js, Express, Seque
  npm install
 ```
 3. Set up environment variables:
+   Create .env file in root dir
 ```bash
  DB_PASSWORD= yourpassword
  PORT= 3000
@@ -42,7 +40,7 @@ NoteCraft is a simple note-taking application built with Node.js, Express, Seque
 ```
 ## Postman Collection
 
-See Doc in postman
+Checkout Doc in postman
 
 ```bash
   https://www.postman.com/crimson-meadow-34095/workspace/notecraft
