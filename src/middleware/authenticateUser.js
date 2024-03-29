@@ -12,10 +12,8 @@ exports.authenticateUser = async (req, res, next) => {
 
     try {
         const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-        console.log(colors.red('decodedToken:'), decodedToken);
         const user = await User.findOne({ where: { id: decodedToken.id } });
 
-        console.log(colors.red('user:'), user);
         if (!user) {
             return res.status(401).json({ message: 'Unauthorized: Invalid token' });
         }
@@ -23,6 +21,12 @@ exports.authenticateUser = async (req, res, next) => {
         next();
     } catch (error) {
         console.error(error);
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({ message: 'Unauthorized: Invalid token' });
+        }
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ message: 'Unauthorized: Token expired' });
+        }
         res.status(500).json({ message: 'Internal server error' });
     }
 };
