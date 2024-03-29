@@ -19,6 +19,10 @@ db.sequelize=sequelize;
 
 // tables
 db.user=require('./src/models/userModel')(sequelize,Sequelize);
+db.note=require('./src/models/notesModel')(sequelize,Sequelize);
 
+// relations
+db.note.belongsTo(db.user);
+db.user.hasMany(db.note);
 
 module.exports=db;
