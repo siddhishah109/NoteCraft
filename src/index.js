@@ -4,6 +4,7 @@ const bodyParser =require('body-parser');
 const morgan = require('morgan');
 const app = express();
 const authRoutes = require('./routes/authRoutes.js');
+const notesRoutes = require('./routes/notesRoutes.js');
 const PORT = process.env.PORT || 3001;
 app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -24,6 +25,7 @@ syncDatabase();
 
 
 app.use('/auth', authRoutes);
+app.use('/notes', notesRoutes);
 
 app.get('/', (req, res) => {
     res.send('Welcome');

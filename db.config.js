@@ -25,4 +25,5 @@ db.note=require('./src/models/notesModel')(sequelize,Sequelize);
 db.note.belongsTo(db.user);
 db.user.hasMany(db.note);
 
+
 module.exports=db;

@@ -1,5 +1,8 @@
+// authenticateUser.js
 const jwt = require('jsonwebtoken');
-const { User } = require('../models/userModel.js');
+const db = require('../../db.config.js');
+const User = db.user;
+const colors = require('colors');
 
 exports.authenticateUser = async (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
@@ -8,12 +11,15 @@ exports.authenticateUser = async (req, res, next) => {
     }
 
     try {
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findByPk(decodedToken.userId);
+        const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+        console.log(colors.red('decodedToken:'), decodedToken);
+        const user = await User.findOne({ where: { id: decodedToken.id } });
+
+        console.log(colors.red('user:'), user);
         if (!user) {
             return res.status(401).json({ message: 'Unauthorized: Invalid token' });
         }
-        req.user = user;
+        req.user = user; 
         next();
     } catch (error) {
         console.error(error);

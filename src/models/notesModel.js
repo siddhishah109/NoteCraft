@@ -14,8 +14,6 @@ module.exports =(sequelize, Sequelize) => {
             allowNull: false
         },
         
-    },{
-        timestamps: true 
     });
 
     return Note;
